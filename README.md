@@ -31,14 +31,14 @@ In `extensions` directory modify `build.xml` to include `build` and `clean` task
 </project>
 ```
 
-OpenRefine build will also build the extension:<br>
+OpenRefine build will also build the extension.<br>
 From OpenRefine root directory run:
 ```
 ant clean build
 ```
 
 ### Usage
-Click on the `P3Platform` button on the extensions bar:
+Click on the `P3Platform` button on the extensions bar:<br>
 ![P3Plaform button](img/bar.png)
 
 
