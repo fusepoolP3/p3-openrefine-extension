@@ -14,7 +14,7 @@ function createDefaultContainer(name) {
 
   if (!isEmpty(name)) {
       putRequest = $.ajax({
-               url: SampleExtension.platformURI + ':8181/ldp/' + name,
+               url: P3Extension.platformURI + ':8181/ldp/' + name,
                type : "PUT",
                data : query,
                timeout: 3000,
@@ -28,7 +28,7 @@ function createDefaultContainer(name) {
 
 HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
   var self = this;
-  var frame = $(DOM.loadHTML("sample", "dialogs/factory.html"));
+  var frame = $(DOM.loadHTML("p3-openrefine-extension", "dialogs/factory.html"));
   var elmts = DOM.bind(frame);
 
   elmts.destName.val(theProject.metadata.name.replace(' ','') + "_transform.json")
@@ -58,7 +58,7 @@ HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
 
 
     getContainerReq = $.ajax({
-           	        url : SampleExtension.platformURI + ':8181/ldp/' + elmts.contName.val(),
+           	        url : P3Extension.platformURI + ':8181/ldp/' + elmts.contName.val(),
            	        type : "GET",
            	        timeout: 3000,
            	        async : false,
@@ -73,7 +73,7 @@ HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
     }
 
      uploadRulesRequest = $.ajax({
-      	url : SampleExtension.platformURI + ':8181/ldp/' +  elmts.contName.val(),
+      	url : P3Extension.platformURI + ':8181/ldp/' +  elmts.contName.val(),
       	type : "POST",
       	timeout: 3000,
       	async : false,
@@ -92,15 +92,16 @@ HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
          alert("Error uploading transformation rules")
       }
 
-     P3Platform.getPlatform(SampleExtension.platformURI).then(function(p) {
-       p.getTransformerRegistry().then(function(tr){
+     P3Platform.getPlatform(P3Extension.platformURI).then(function(p) {
+       p.getTransformerRegistry().then(function(tr) {
        tr.registerTransformer(
-       SampleExtension.platformURI+":8310?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')),
+         P3Extension.platformURI+":8310?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')),
          elmts.trName.val(),
          elmts.trDesc.val()
        )
+       window.prompt("Registered new transformer: "+elmts.trName.val(),P3Extension.platformURI+":8310?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')));
        })
-     },function(err){console.log("Error accessing platform: "+err)})
+     },function(err){alert("Error accessing platform: "+err)})
 
     });
 

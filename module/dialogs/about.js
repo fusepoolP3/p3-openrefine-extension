@@ -11,7 +11,7 @@ function AboutDialog() {}
 
 AboutDialog.prototype = {
   init: function () {
-    this.dialogElement = $(DOM.loadHTML("sample", "dialogs/about.html"));
+    this.dialogElement = $(DOM.loadHTML("p3-openrefine-extension", "dialogs/about.html"));
     console.log(this.dialogElement);
     controls = DOM.bind(this.dialogElement);
     controls.close.click(this.link("hide"));
