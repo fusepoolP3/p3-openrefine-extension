@@ -1,0 +1,57 @@
+<div class="dialog-frame" style="width: 800px;">
+    <div class="dialog-border">
+        <div class="dialog-header" bind="dialogHeader"></div>
+        <div class="dialog-body" bind="dialogBody">
+            <div class="grid-layout layout-normal layout-full">
+                <table>
+                    <tr>
+                        <td colspan="2" bind="or_proj_extractSave">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="vertical-align: top">
+                            <div class="history-extract-dialog-panel">
+                                <table class="history-extract-dialog-entries" bind="entryTable"></table>
+                            </div>
+                        </td>
+                        <td width="50%" rowspan="2" style="vertical-align: top">
+                            <div class="input-container"><textarea wrap="off" class="history-operation-json"
+                                                                   bind="textarea"/></div>
+                            <button class="button" bind="selectAllButton"></button>
+                            <button class="button" bind="unselectAllButton"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <div>
+                                <div class="dialog-header">
+                                    <center>P3-platform extension</center>
+                                </div>
+                                <table bind="p3PlatformTable">
+                                    <tr>
+                                        <p>Post transformation rules:</p>
+                                           Container: <input type="text" bind="contName" value="refine-transforms"><br>
+                                           Filename:  <input type="text" bind="destName" name="filename"><br>
+                                        <p>Register Batchrefine transformer:</p>
+                                           Transformer name: <input type="text" bind="trName"><br>
+                                           Transformer description: <input type="text" bind="trDesc" value="Registered from OpenRefine"><br>
+                                        <br><center>
+                                        <button class="button" bind="postToPlatformButton">Register transformer</button>
+                                    </center>
+
+                                    </tr>
+
+                                </table>
+                                <ul class="errorMessages"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="dialog-footer" bind="dialogFooter">
+            <button class="button" bind="closeButton"></button>
+        </div>
+    </div>
+</div>
