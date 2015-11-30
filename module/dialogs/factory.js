@@ -95,7 +95,7 @@ HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
      P3Platform.getPlatform(P3Extension.platformURI).then(function(p) {
        p.getTransformerRegistry().then(function(tr) {
        tr.registerTransformer(
-         P3Extension.platformURI+":8310?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')),
+         P3Extension.platformURI+":8310/?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')),
          elmts.trName.val(),
          elmts.trDesc.val()
        )
