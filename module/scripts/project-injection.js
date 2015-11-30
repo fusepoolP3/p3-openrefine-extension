@@ -7,18 +7,39 @@ handlers: {}
 
 
 P3Extension.handlers.updatePlatformURI = function() {
-     $.get(
-           "command/core/get-preference",
-           {name : "p3.platform.uri"},
-           function(o) {
-             if (o.value !== null) {
-             console.log(o)
-             P3Extension.platformURI = o.value
-             } else {
-            P3Extension.platformURI = 'http://' + window.location.hostname
-             }
-           }
-     );
+     var set = getURLParameter("platformURI");
+
+         if (set.length > 0) {
+             P3Extension.platformURI = set[0];
+             $.post(
+                   "command/core/set-preference",
+                   {
+                     name : "p3.platform.uri",
+                     value : JSON.stringify(set[0].replace(/\/$/, ""))
+                   },
+                   function(o) {
+                     if (o.code == "error") {
+                       alert(o.message);
+                     }
+                   },
+                   "json"
+                 );
+                 console.log("Got platformURI from query parameter: " +  set[0])
+         } else {
+            $.get(
+            "command/core/get-preference",
+            {name : "p3.platform.uri"},
+            function(o) {
+                 if (o.value !== null) {
+                    console.log("Got platformURI from Refine get-preference API: "+ o.value)
+                    P3Extension.platformURI = o.value
+                    } else {
+                    P3Extension.platformURI = 'http://' + window.location.hostname
+                    console.log("Got platformURI from window.location: " + P3Extension.platformURI)
+                   }
+                 }
+              );
+    }
 };
 
 P3Extension.handlers.setPlatformURI = function() {
@@ -40,8 +61,6 @@ P3Extension.handlers.setPlatformURI = function() {
     P3Extension.handlers.updatePlatformURI();
   }
 };
-
-P3Extension.handlers.updatePlatformURI();
 
 function dialogHandler(dialogConstructor) {
     var dialogArguments = Array.prototype.slice.call(arguments, 1);
@@ -82,3 +101,18 @@ ExtensionBar.addExtensionMenu({
         },
     ]
 });
+
+function getURLParameter(paramName) {
+    var result = [];
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var parameterName = sURLVariables[i].split('=');
+        if (parameterName[0] === paramName) {
+            result.push(decodeURIComponent(parameterName[1]));
+        }
+    }
+    return result;
+}
+
+P3Extension.handlers.updatePlatformURI();

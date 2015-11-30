@@ -99,7 +99,7 @@ HistoryPanel.prototype._showExtractOperationsDialog = function(json) {
          elmts.trName.val(),
          elmts.trDesc.val()
        )
-       window.prompt("Registered new transformer: "+elmts.trName.val(),P3Extension.platformURI+":8310?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')));
+       window.prompt("Registered new transformer: "+elmts.trName.val(),P3Extension.platformURI+":8310/?refinejson="+encodeURIComponent(uploadRulesRequest.getResponseHeader('Location')));
        })
      },function(err){alert("Error accessing platform: "+err)})
 
